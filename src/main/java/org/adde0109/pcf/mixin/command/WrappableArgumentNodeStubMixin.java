@@ -28,10 +28,10 @@ The MIT License (MIT)
 import com.mojang.brigadier.arguments.ArgumentType;
 import io.netty.buffer.Unpooled;
 import net.minecraft.commands.synchronization.ArgumentTypeInfo;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.adde0109.pcf.Initializer;
 import org.adde0109.pcf.command.IMixinNodeStub;
 import org.spongepowered.asm.mixin.Final;
@@ -68,7 +68,7 @@ public class WrappableArgumentNodeStubMixin implements IMixinNodeStub {
   }
 
   private static <A extends ArgumentType<?>, T extends ArgumentTypeInfo.Template<A>> void wrapInVelocityModArgument(FriendlyByteBuf buf, ArgumentTypeInfo<A, T> serializer, ArgumentTypeInfo.Template<A> properties) {
-    ResourceLocation identifier = BuiltInRegistries.COMMAND_ARGUMENT_TYPE.getKey(properties.type());
+    ResourceLocation identifier = ForgeRegistries.COMMAND_ARGUMENT_TYPES.getKey(properties.type());
 
     if (identifier != null && Initializer.integratedArgumentTypes.contains(identifier.toString())) {
       buf.writeVarInt(BuiltInRegistries.COMMAND_ARGUMENT_TYPE.getId(serializer));

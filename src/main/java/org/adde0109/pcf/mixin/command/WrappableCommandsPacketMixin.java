@@ -27,6 +27,4 @@ public class WrappableCommandsPacketMixin implements IMixinWrappableCommandPacke
     });
     byteBuf.writeVarInt(this.rootIndex);
   }
-
-
 }
